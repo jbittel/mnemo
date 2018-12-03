@@ -29,24 +29,24 @@ var fmne_syls = [...]string{
 
 const fmne_neg = "xa"
 
-func fmne_tos(i int, b *bytes.Buffer) {
+func fmne_tos(i int, buf *bytes.Buffer) {
 	mod := i % len(fmne_syls)
 	rst := i / len(fmne_syls)
 	if rst > 0 {
-		fmne_tos(rst, b)
+		fmne_tos(rst, buf)
 	}
-	b.WriteString(fmne_syls[mod])
+	buf.WriteString(fmne_syls[mod])
 }
 
 func Fmne_to_s(i int) string {
-	var b bytes.Buffer
+	var buf bytes.Buffer
 
 	if i < 0 {
-		b.WriteString(fmne_neg)
+		buf.WriteString(fmne_neg)
 		i = i * -1
 	}
 
-	fmne_tos(i, &b)
+	fmne_tos(i, &buf)
 
-	return b.String()
+	return buf.String()
 }

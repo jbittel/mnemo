@@ -1,10 +1,6 @@
-package mnemo_test
+package mnemo
 
-import (
-	"testing"
-
-	"github.com/jbittel/mnemo/mnemo"
-)
+import "testing"
 
 type tosTest struct {
 	input  int
@@ -26,7 +22,7 @@ var tosTests = []tosTest{
 
 func TestFmne_to_s(t *testing.T) {
 	for _, test := range tosTests {
-		if s := mnemo.Fmne_to_s(test.input); s != test.output {
+		if s := Fmne_to_s(test.input); s != test.output {
 			t.Errorf("Input %d returned %s, expected %s", test.input, s, test.output)
 		}
 	}
