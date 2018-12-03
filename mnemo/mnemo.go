@@ -1,8 +1,7 @@
-package main
+package mnemo
 
 import (
 	"bytes"
-	"fmt"
 )
 
 var fmne_syls = [...]string{
@@ -39,7 +38,7 @@ func fmne_tos(i int, b *bytes.Buffer) {
 	b.WriteString(fmne_syls[mod])
 }
 
-func fmne_to_s(i int) string {
+func Fmne_to_s(i int) string {
 	var b bytes.Buffer
 
 	if i < 0 {
@@ -50,10 +49,4 @@ func fmne_to_s(i int) string {
 	fmne_tos(i, &b)
 
 	return b.String()
-}
-
-func main() {
-	fmt.Println(fmne_to_s(98765))
-	fmt.Println(fmne_to_s(4567))
-	fmt.Println(fmne_to_s(-4567))
 }
