@@ -2,6 +2,7 @@ package mnemo
 
 import (
 	"bytes"
+	"strings"
 )
 
 var fmne_syls = [...]string{
@@ -49,4 +50,26 @@ func Fmne_to_s(i int) string {
 	fmne_tos(i, &buf)
 
 	return buf.String()
+}
+
+func Fmne_to_i(s string) int {
+	result := 0
+	sign := 1
+
+	if strings.HasPrefix(s, fmne_neg) {
+		sign = -1
+		s = strings.TrimPrefix(s, fmne_neg)
+	}
+
+	for len(s) > 0 {
+		for i := 0; i < len(fmne_syls); i++ {
+			if strings.HasPrefix(s, fmne_syls[i]) {
+				s = strings.TrimPrefix(s, fmne_syls[i])
+				result = len(fmne_syls)*result + i
+				break
+			}
+		}
+	}
+
+	return sign * result
 }
