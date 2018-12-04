@@ -46,7 +46,7 @@ var decodeTests = []decodeTest{
 func TestEncode(t *testing.T) {
 	for _, test := range encodeTests {
 		if s := Encode(test.input); s != test.output {
-			t.Errorf("Input %d returned %s, expected %s", test.input, s, test.output)
+			t.Errorf("Encoding %d returned %s, expected %s", test.input, s, test.output)
 		}
 	}
 }
@@ -54,7 +54,7 @@ func TestEncode(t *testing.T) {
 func TestDecode(t *testing.T) {
 	for _, test := range decodeTests {
 		if i := Decode(test.input); i != test.output {
-			t.Errorf("Input %s returned %d, expected %d", test.input, i, test.output)
+			t.Errorf("Decoding %s returned %d, expected %d", test.input, i, test.output)
 		}
 	}
 }
