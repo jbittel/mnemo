@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-var fmne_syls = [...]string{
+var syllables = [...]string{
 	"ba", "bi", "bu", "be", "bo",
 	"cha", "chi", "chu", "che", "cho",
 	"da", "di", "du", "de", "do",
@@ -28,44 +28,46 @@ var fmne_syls = [...]string{
 	"za", "zi", "zu", "ze", "zo",
 }
 
-const fmne_neg = "xa"
+const negSyllable = "xa"
 
-func fmne_tos(i int, buf *bytes.Buffer) {
-	mod := i % len(fmne_syls)
-	rst := i / len(fmne_syls)
+func encodeString(i int, buf *bytes.Buffer) {
+	mod := i % len(syllables)
+	rst := i / len(syllables)
+
 	if rst > 0 {
-		fmne_tos(rst, buf)
+		encodeString(rst, buf)
 	}
-	buf.WriteString(fmne_syls[mod])
+
+	buf.WriteString(syllables[mod])
 }
 
-func Fmne_to_s(i int) string {
+func Encode(i int) string {
 	var buf bytes.Buffer
 
 	if i < 0 {
-		buf.WriteString(fmne_neg)
+		buf.WriteString(negSyllable)
 		i = i * -1
 	}
 
-	fmne_tos(i, &buf)
+	encodeString(i, &buf)
 
 	return buf.String()
 }
 
-func Fmne_to_i(s string) int {
+func Decode(s string) int {
 	result := 0
 	sign := 1
 
-	if strings.HasPrefix(s, fmne_neg) {
+	if strings.HasPrefix(s, negSyllable) {
 		sign = -1
-		s = strings.TrimPrefix(s, fmne_neg)
+		s = strings.TrimPrefix(s, negSyllable)
 	}
 
 	for len(s) > 0 {
-		for i := 0; i < len(fmne_syls); i++ {
-			if strings.HasPrefix(s, fmne_syls[i]) {
-				s = strings.TrimPrefix(s, fmne_syls[i])
-				result = len(fmne_syls)*result + i
+		for i := 0; i < len(syllables); i++ {
+			if strings.HasPrefix(s, syllables[i]) {
+				s = strings.TrimPrefix(s, syllables[i])
+				result = len(syllables)*result + i
 				break
 			}
 		}

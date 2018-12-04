@@ -2,17 +2,17 @@ package mnemo
 
 import "testing"
 
-type tosTest struct {
+type encodeTest struct {
 	input  int
 	output string
 }
 
-type toiTest struct {
+type decodeTest struct {
 	input  string
 	output int
 }
 
-var tosTests = []tosTest{
+var encodeTests = []encodeTest{
 	{0, "ba"},
 	{1, "bi"},
 	{99, "zo"},
@@ -25,24 +25,25 @@ var tosTests = []tosTest{
 	{-100, "xabiba"},
 }
 
-var toiTests = []toiTest{
+var decodeTests = []decodeTest{
 	{"yoshida", 947110},
 	{"bajo", 34},
+	{"kogochi", 392406},
 	{"tonukatsu", 79523582},
 	{"xabaji", -31},
 }
 
-func TestFmne_to_s(t *testing.T) {
-	for _, test := range tosTests {
-		if s := Fmne_to_s(test.input); s != test.output {
+func TestEncode(t *testing.T) {
+	for _, test := range encodeTests {
+		if s := Encode(test.input); s != test.output {
 			t.Errorf("Input %d returned %s, expected %s", test.input, s, test.output)
 		}
 	}
 }
 
-func TestFmne_to_i(t *testing.T) {
-	for _, test := range toiTests {
-		if i := Fmne_to_i(test.input); i != test.output {
+func TestDecode(t *testing.T) {
+	for _, test := range decodeTests {
+		if i := Decode(test.input); i != test.output {
 			t.Errorf("Input %s returned %d, expected %d", test.input, i, test.output)
 		}
 	}
