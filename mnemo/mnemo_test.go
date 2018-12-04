@@ -13,24 +13,34 @@ type decodeTest struct {
 }
 
 var encodeTests = []encodeTest{
+	{-999, "xachozo"},
+	{-100, "xabiba"},
+	{-99, "xazo"},
+	{-1, "xabi"},
+	{-0, "ba"},
 	{0, "ba"},
 	{1, "bi"},
+	{34, "jo"},
 	{99, "zo"},
 	{100, "biba"},
 	{101, "bibi"},
+	{999, "chozo"},
 	{392406, "kogochi"},
 	{25437225, "haleshuha"},
-	{-1, "xabi"},
-	{-99, "xazo"},
-	{-100, "xabiba"},
 }
 
 var decodeTests = []decodeTest{
-	{"yoshida", 947110},
-	{"bajo", 34},
-	{"kogochi", 392406},
-	{"tonukatsu", 79523582},
+	{"xachozo", -999},
 	{"xabaji", -31},
+	{"xabi", -1},
+	{"xaba", 0},
+	{"ba", 0},
+	{"bi", 1},
+	{"bajo", 34},
+	{"chozo", 999},
+	{"kogochi", 392406},
+	{"yoshida", 947110},
+	{"tonukatsu", 79523582},
 }
 
 func TestEncode(t *testing.T) {
