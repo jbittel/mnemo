@@ -62,7 +62,7 @@ func main() {
 	} else if decode.set {
 		i, err := mnemo.Decode(decode.value)
 		if err != nil {
-			log.Fatalf("invalid syllable encountered in \"%s\"", decode.value)
+			log.Fatal(err)
 		} else {
 			fmt.Println(i)
 		}
