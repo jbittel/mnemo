@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 
 	"github.com/jbittel/mnemo/mnemo"
@@ -49,6 +50,10 @@ func init() {
 }
 
 func main() {
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage:\n\n  %s [-encode | -decode]\n\n", os.Args[0])
+		flag.PrintDefaults()
+	}
 	flag.Parse()
 
 	if encode.set {
@@ -61,5 +66,7 @@ func main() {
 		} else {
 			fmt.Println(i)
 		}
+	} else {
+		flag.Usage()
 	}
 }
