@@ -47,16 +47,21 @@ var decodeTests = []decodeTest{
 
 func TestEncode(t *testing.T) {
 	for _, test := range encodeTests {
-		if s := Encode(test.input); s != test.output {
-			t.Errorf("Encoding %d returned %s, expected %s", test.input, s, test.output)
+		if s, _ := Encode(test.input); s != test.output {
+			t.Errorf("encoding %d returned %s, expected %s", test.input, s, test.output)
 		}
 	}
 }
 
 func TestDecode(t *testing.T) {
 	for _, test := range decodeTests {
-		if i := Decode(test.input); i != test.output {
-			t.Errorf("Decoding %s returned %d, expected %d", test.input, i, test.output)
+		if i, _ := Decode(test.input); i != test.output {
+			t.Errorf("decoding %s returned %d, expected %d", test.input, i, test.output)
 		}
+	}
+
+	_, err := Decode("invalid")
+	if err == nil {
+		t.Errorf("no error returned when decoding invalid syllables")
 	}
 }

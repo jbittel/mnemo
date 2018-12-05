@@ -2,6 +2,7 @@ package mnemo
 
 import (
 	"bytes"
+	"errors"
 	"strings"
 )
 
@@ -41,7 +42,7 @@ func encodeString(i int, buf *bytes.Buffer) {
 	buf.WriteString(syllables[mod])
 }
 
-func Encode(i int) string {
+func Encode(i int) (string, error) {
 	var buf bytes.Buffer
 
 	if i < 0 {
@@ -51,10 +52,10 @@ func Encode(i int) string {
 
 	encodeString(i, &buf)
 
-	return buf.String()
+	return buf.String(), nil
 }
 
-func Decode(s string) int {
+func Decode(s string) (int, error) {
 	result := 0
 	sign := 1
 
@@ -63,15 +64,18 @@ func Decode(s string) int {
 		s = strings.TrimPrefix(s, negSyllable)
 	}
 
+DecodeLoop:
 	for len(s) > 0 {
-		for i := 0; i < len(syllables); i++ {
-			if strings.HasPrefix(s, syllables[i]) {
-				s = strings.TrimPrefix(s, syllables[i])
+		for i, syllable := range syllables {
+			if strings.HasPrefix(s, syllable) {
+				s = strings.TrimPrefix(s, syllable)
 				result = len(syllables)*result + i
-				break
+				continue DecodeLoop
 			}
 		}
+
+		return 0, errors.New("invalid syllable encountered")
 	}
 
-	return sign * result
+	return sign * result, nil
 }

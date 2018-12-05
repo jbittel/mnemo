@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"strconv"
 
 	"github.com/jbittel/mnemo/mnemo"
@@ -51,8 +52,14 @@ func main() {
 	flag.Parse()
 
 	if encode.set {
-		fmt.Println(mnemo.Encode(encode.value))
+		s, _ := mnemo.Encode(encode.value)
+		fmt.Println(s)
 	} else if decode.set {
-		fmt.Println(mnemo.Decode(decode.value))
+		i, err := mnemo.Decode(decode.value)
+		if err != nil {
+			log.Fatalf("invalid syllable encountered in \"%s\"", decode.value)
+		} else {
+			fmt.Println(i)
+		}
 	}
 }
