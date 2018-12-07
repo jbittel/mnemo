@@ -65,3 +65,25 @@ func TestDecode(t *testing.T) {
 		t.Errorf("no error returned when decoding invalid syllables")
 	}
 }
+
+func benchmarkEncode(i int, b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Encode(i)
+	}
+}
+
+func BenchmarkEncode9(b *testing.B)         { benchmarkEncode(9, b) }
+func BenchmarkEncode999(b *testing.B)       { benchmarkEncode(999, b) }
+func BenchmarkEncode999999(b *testing.B)    { benchmarkEncode(999999, b) }
+func BenchmarkEncode999999999(b *testing.B) { benchmarkEncode(999999999, b) }
+
+func benchmarkDecode(s string, b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Decode(s)
+	}
+}
+
+func BenchmarkDecode9(b *testing.B)         { benchmarkDecode("cho", b) }
+func BenchmarkDecode999(b *testing.B)       { benchmarkDecode("chozo", b) }
+func BenchmarkDecode999999(b *testing.B)    { benchmarkDecode("zozozo", b) }
+func BenchmarkDecode999999999(b *testing.B) { benchmarkDecode("chozozozozo", b) }
