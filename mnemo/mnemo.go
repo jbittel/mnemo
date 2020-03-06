@@ -1,3 +1,5 @@
+// Package mnemo converts integers into mnemonic
+// "words" and back again.
 package mnemo
 
 import (
@@ -42,6 +44,7 @@ func encodeString(i int, buf *bytes.Buffer) {
 	buf.WriteString(syllables[mod])
 }
 
+// Encode converts an integer into a mnemonic "word"
 func Encode(i int) (string, error) {
 	var buf bytes.Buffer
 
@@ -55,6 +58,7 @@ func Encode(i int) (string, error) {
 	return buf.String(), nil
 }
 
+// Decode converts a "word" into it's integer equivalent
 func Decode(s string) (int, error) {
 	result := 0
 	sign := 1
