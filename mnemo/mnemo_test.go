@@ -12,6 +12,11 @@ type decodeTest struct {
 	output int
 }
 
+type validTest struct {
+	input  string
+	output bool
+}
+
 var encodeTests = []encodeTest{
 	{-999, "xachozo"},
 	{-100, "xabiba"},
@@ -45,6 +50,16 @@ var decodeTests = []decodeTest{
 	{"tonukatsu", 79523582},
 }
 
+var validTests = []validTest{
+	{"xachozo", true},
+	{"chozo", true},
+	{"hozo", true},
+	{"ozo", false},
+	{"ozo", false},
+	{"zo", true},
+	{"o", false},
+}
+
 func TestEncode(t *testing.T) {
 	for _, test := range encodeTests {
 		if s, _ := Encode(test.input); s != test.output {
@@ -63,6 +78,14 @@ func TestDecode(t *testing.T) {
 	_, err := Decode("invalid")
 	if err == nil {
 		t.Errorf("no error returned when decoding invalid syllables")
+	}
+}
+
+func TestValid(t *testing.T) {
+	for _, test := range validTests {
+		if v := Valid(test.input); v != test.output {
+			t.Errorf("validating %s returned %t, expected %t", test.input, v, test.output)
+		}
 	}
 }
 
