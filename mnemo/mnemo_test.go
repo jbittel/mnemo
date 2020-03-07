@@ -12,7 +12,7 @@ type decodeTest struct {
 	output int
 }
 
-type validTest struct {
+type validateTest struct {
 	input  string
 	output bool
 }
@@ -50,7 +50,7 @@ var decodeTests = []decodeTest{
 	{"tonukatsu", 79523582},
 }
 
-var validTests = []validTest{
+var validateTests = []validateTest{
 	{"xachozo", true},
 	{"chozo", true},
 	{"hozo", true},
@@ -81,9 +81,9 @@ func TestDecode(t *testing.T) {
 	}
 }
 
-func TestValid(t *testing.T) {
-	for _, test := range validTests {
-		if v := Valid(test.input); v != test.output {
+func TestValidate(t *testing.T) {
+	for _, test := range validateTests {
+		if v := Validate(test.input); v != test.output {
 			t.Errorf("validating %s returned %t, expected %t", test.input, v, test.output)
 		}
 	}

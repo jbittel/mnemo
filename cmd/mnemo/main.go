@@ -43,15 +43,17 @@ func (flag *stringFlag) String() string {
 
 var encode intFlag
 var decode stringFlag
+var validate stringFlag
 
 func init() {
-	flag.Var(&encode, "encode", "Encode an integer to a string")
-	flag.Var(&decode, "decode", "Decode a string to an integer")
+	flag.Var(&encode, "encode", "Encode an integer to a word")
+	flag.Var(&decode, "decode", "Decode a word to an integer")
+	flag.Var(&validate, "validate", "Validate a word")
 }
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "Usage:\n\n  %s [-encode | -decode]\n\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Usage:\n\n  %s [-encode | -decode | -validate]\n\n", os.Args[0])
 		flag.PrintDefaults()
 	}
 	flag.Parse()
@@ -66,6 +68,9 @@ func main() {
 		} else {
 			fmt.Println(i)
 		}
+	} else if validate.set {
+		v := mnemo.Validate(validate.value)
+		fmt.Println(v)
 	} else {
 		flag.Usage()
 	}

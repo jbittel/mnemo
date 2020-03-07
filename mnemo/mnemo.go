@@ -84,8 +84,8 @@ DecodeLoop:
 	return sign * result, nil
 }
 
-// Valid determines if a given "word" is valid
-func Valid(word string) bool {
+// Validate determines if a given "word" is valid
+func Validate(word string) bool {
 	_, err := Decode(word)
 	if err != nil {
 		return false
