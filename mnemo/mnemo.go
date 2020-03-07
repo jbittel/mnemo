@@ -45,7 +45,7 @@ func encodeString(i int, buf *bytes.Buffer) {
 }
 
 // Encode converts an integer into a mnemonic "word"
-func Encode(i int) (string, error) {
+func Encode(i int) (word string, err error) {
 	var buf bytes.Buffer
 
 	if i < 0 {
@@ -59,20 +59,20 @@ func Encode(i int) (string, error) {
 }
 
 // Decode converts a "word" into it's integer equivalent
-func Decode(s string) (int, error) {
+func Decode(word string) (i int, err error) {
 	result := 0
 	sign := 1
 
-	if strings.HasPrefix(s, negSyllable) {
+	if strings.HasPrefix(word, negSyllable) {
 		sign = -1
-		s = strings.TrimPrefix(s, negSyllable)
+		word = strings.TrimPrefix(word, negSyllable)
 	}
 
 DecodeLoop:
-	for len(s) > 0 {
+	for len(word) > 0 {
 		for i, syllable := range syllables {
-			if strings.HasPrefix(s, syllable) {
-				s = strings.TrimPrefix(s, syllable)
+			if strings.HasPrefix(word, syllable) {
+				word = strings.TrimPrefix(word, syllable)
 				result = len(syllables)*result + i
 				continue DecodeLoop
 			}
