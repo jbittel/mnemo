@@ -15,6 +15,10 @@ $ mnemo -decode chozo
 999
 $ mnemo -decode xachozo
 -999
+$ mnemo -validate chozo
+true
+$ mnemo -validate ozohc
+false
 ```
 
 ## License
